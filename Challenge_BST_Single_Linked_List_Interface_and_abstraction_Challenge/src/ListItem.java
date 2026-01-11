@@ -8,45 +8,26 @@ public abstract class ListItem {
     protected ListItem leftLink;
     protected Object value;
 
-    public ListItem(Object value){
+    // The constructor that sets the value of the Object Value.
+    public ListItem(Object value) {
         this.value = value;
     }
 
-    public ListItem next(){
-    return rightLink;
-    }
+    abstract ListItem next();
 
-    public ListItem setNext(ListItem nextItem){
-        rightLink = nextItem;
-        return rightLink;
-    }
+    abstract ListItem setNext(ListItem nextItem);
 
-    public ListItem previous(){
-        return leftLink;
-    }
+    abstract ListItem previous();
 
-    public ListItem setPrevious(ListItem prevItem){
-        leftLink = prevItem;
-        return leftLink;
-    }
+    abstract ListItem setPrevious(ListItem prevItem);
 
-    public int compareTo(ListItem itemToCompare){
-        int currentItem = (int) value;
-        int newItem = (int) itemToCompare.getValue();
+    abstract int compareTo(ListItem itemToCompare);
 
-        if (currentItem == newItem){
-            return 0;
-        } else if ( currentItem > newItem) {
-            return 1;
-        }
-        return -1;
-    }
-
-    public Object getValue(){
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(Object setValue){
+    public void setValue(Object setValue) {
         value = setValue;
     }
 
