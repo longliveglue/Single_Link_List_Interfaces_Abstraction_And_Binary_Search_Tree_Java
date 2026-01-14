@@ -30,15 +30,20 @@ public class MyLinkedList implements NodeList {
             if (current.getValue() == node.getValue()) {
                 return false;
             }
+            //This will move us along until we get to the last item.
+            // Because the last item will have a rightLink of Null the while loop will cancel.
+            //This means that the above if statement won't check to see if the last item is a duplicate of the item we are trying to add.
             current = current.next();
         }
 
-        // CRITICAL: Check the last node for a duplicate too!
+        // We have to do one last check to make sure that the final item is not a duplicate.
+        //If it is we don't add anything and return false.
         if (current.getValue() == node.getValue()) {
             return false;
         }
 
-        // Link them both ways
+        // If however there are no duplicates and we are now at the final node with a rightLink of Null.
+        // We nee
         current.setNext(node);
         node.setPrevious(current);
 
@@ -96,41 +101,24 @@ public class MyLinkedList implements NodeList {
 
     @Override
     public void traverse() {
+    // The Traverse method should traverse through the linked list and print out the value of all items.
+        ListItem current = root;
+
+        if(current == null){
+            System.out.println("The list is empty");
+            return;
+        } else {
+            System.out.println(current.getValue());
+        }
+
+        while(current.next() != null){
+            current = current.next();
+            System.out.println(current.getValue());
+        }
+
+        return;
 
     }
 }
 
 
-/*
-@Override
-public boolean addItem(ListItem node) {
-
-// When adding an item we want to make sure that the root isn't null. If it is null then we will set the root the new node.
-if(root == null){
-root = node;
-return true;
-}
-
-// If the root node already has a value then we now need to check through the list to see if we can find a match.
-// Now its very unlikely that we are going to find a matching node. What is more likely is that we will find a matching value.
-// Therefore we will start with the root node placing it into the new current ListItem variable get its value and compare the value of the current node with the value of the new node.
-ListItem current = root;
-
-//While the current node has a right link with a node in it thats not null.
-while(current != null){
-
-//the current nodes value is equal to the new nodes value then we shouldn't be adding it.
-//We therefore return false.
-if(current.getValue() == node.getValue()){
-return false;
-}
-//Having already checked to see if the current Node has a node in the right link.
-// Now we shift along the nodes so the current node becomes the rightlink.
-current = current.next();
-//If after having checked all the nodes and their values and we find that none of them match we can break out of the while loop
-}
-// Having broken out of the while loop we can now
-current.setNext(node);
-return true;
-}
- */
