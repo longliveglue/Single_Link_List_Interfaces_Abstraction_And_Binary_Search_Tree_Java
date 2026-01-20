@@ -43,7 +43,7 @@ public class MyLinkedList implements NodeList {
         }
 
         // If however there are no duplicates and we are now at the final node with a rightLink of Null.
-        // We nee
+
         current.setNext(node);
         node.setPrevious(current);
 
