@@ -16,33 +16,53 @@ public class SearchTree implements NodeList{
     @Override
     public boolean addItem(ListItem node) {
 
-        //1. First i want to check to see if the root is null which it definately shouldn't be but the constructor isn't checking to see if it is so we need to be sure.
+        //1. Confirm that the node item isn't null. If it is return false.
+        //2. Confirm the root isn't null. If it is then set the new node to be the root item and return true as we have added the item. This is useful when adding to left and right Links.
+        //3. We need to make a temporary marker to allow us to traverse we will call it current. It will always start at the root.
+        //3. If both the node and the root aren't null. We need to compare the root to the node. if the node is bigger it goes to the rightLink less it goes to the LeftLink and equal return false.
+
+
+        //Step 1.
+        if(node == null){
+            return false;
+        }
+
+        //Step 2.
         if (root == null){
             root = node;
             return true;
         }
 
-        // 2. We also need to make sure that the new node isn't null.
-        if(node == null){
-            return false;
-        }
-
-        //3. I now need to create a current node. That we can move through.
+        //Step 3.
         ListItem current = root;
 
-        //4. We now need to compare the current root to the new node.
-        //if the new node is bigger than the current node we will go right on the binary tree.
-        //We will look to see if the current objects rightLink is empty if it is we will add
-        //The new node to the right link and link it back to the current node.
-        //if the new node is less then it will goto the left.
+        // Step 4.
+        while (current != null) {
+            int comparison = current.compareTo(node);
 
-        if(current.compareTo(node) > 1){
-            if (current.next() == null){
-
+            if (comparison < 0) {
+                // current is smaller than node, try to move right/next
+                if (current.next() != null) {
+                    current = current.next();
+                } else {
+                    current.setNext(node);
+                    node.setPrevious(current); // If it's a doubly linked list
+                    return true;
+                }
+            } else if (comparison > 0) {
+                // current is larger than node, try to move left/previous
+                if (current.previous() != null) {
+                    current = current.previous();
+                } else {
+                    current.setPrevious(node);
+                    node.setNext(current); // If it's a doubly linked list
+                    return true;
+                }
+            } else {
+                // comparison == 0 (The item already exists)
+                return false;
             }
         }
-
-
         return false;
     }
 
